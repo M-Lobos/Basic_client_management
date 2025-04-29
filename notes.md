@@ -27,3 +27,6 @@
     v/      add daisyUI to your app css
                 @plugin "daisyui";
 
+*** Backend ***
+
+i) itializing node 
