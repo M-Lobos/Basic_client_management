@@ -29,4 +29,18 @@
 
 *** Backend ***
 
-i) itializing node 
+1) initialize node and istalling express
+    i/      npm init -y
+    ii/     npm install express
+
+2) Installing dependencies 
+    i/      npm install sequelize
+    ii/     npm install dotenv
+    iii/    npm install nodemon -D
+    iv/     npm cors
+    v/      npm install sequelize-auto -D
+    vi/     npm install pg
+    vii/    npm install pg-hstore
+
+3) Create models from DB through sequelize-auto with:
+    npx sequelize-auto -o "./server/src/models" -d client_manag_db -h localhost -u postgrs -x "Nero1509Sabrosum" -p 5432 - postgres -l esm --caseModel p
