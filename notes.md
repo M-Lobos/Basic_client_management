@@ -41,6 +41,7 @@
     v/      npm install sequelize-auto -D
     vi/     npm install pg
     vii/    npm install pg-hstore
+    viii/   npm install morgan
 
 3) Create models from DB through sequelize-auto with:
     npx sequelize-auto -o "./server/src/models" -d client_manag_db -h localhost -u postgrs -x "Nero1509Sabrosum" -p 5432 - postgres -l esm --caseModel p

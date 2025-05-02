@@ -1,9 +1,10 @@
 import { Router } from "express";
+import clientRoutes from "./client.routes.js"
 
 const router = Router();
 
-router.get("", (req, res) => {
-    res.send("<h1>Server up! 🚀🚀🚀 </h1>")
-})
+router.use("", clientRoutes);
+
+
 
 export default router
