@@ -32,6 +32,7 @@ export const getAllClients = async (req, res) => {
 export const createClient = async (req, res) => {
     try {
         const { id, name, email, job, rate, isactive } = req.body;
+
         if (!name || !email || !job || !rate || !isactive) {
             return res.status(400).json({
                 code: 400,
@@ -134,7 +135,7 @@ export const deleteClient = async (req, res) => {
             });
         }
 
-        await Animal.destroy({ where: { id } })
+        await Clients.destroy({ where: { id } })
         res.status(200).json({
             code: 200,
             message: "✅ Client deleted successfully"
