@@ -3,6 +3,6 @@
         "client/node_modules": true,
         "client/public": true,
         "server/node_modules": true,
-        "client": true,
+        /* "client": true, */
     }
 }

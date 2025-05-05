@@ -1,6 +1,28 @@
-export default function TableList({ handleOpen }) {
+import axios from "axios";
+import { useState, useEffect } from "react";
 
-    const clients = [{
+
+export default function TableList({ handleOpen, searchTerm }) {
+
+    const [tableData, setTableData] = useState([]);
+    const [error, setError] = useState(null);
+
+    useEffect(() => {
+        const fetchData = async () => {
+            try {
+                const response = await axios.get("http://localhost:3000/api/v1/clients");
+                setTableData(response.data.data);
+            } catch (error) {
+                setError(error.message);
+
+            }
+        };
+
+        fetchData();
+
+    }, []);
+
+    /* const clients = [{
         id: 1,
         name: "John Doe",
         email: "jdoe@gmail.com",
@@ -25,10 +47,20 @@ export default function TableList({ handleOpen }) {
         isactive: false
     }
 
-    ]
+    ] */
+
+    const filteredData = tableData.filter((client) => {
+        return (
+            client.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+            client.email.toLowerCase().includes(searchTerm.toLowerCase()) ||
+            client.job.toLowerCase().includes(searchTerm.toLowerCase())
+        );
+    });
+
 
     return (
         <>
+            {error && <div className="alert alert-error shadow-lg mt-10">{error}</div>}
             <div className="overflow-x-auto mt-10 p-4">
                 <table className="table">
                     {/* head */}
@@ -40,13 +72,11 @@ export default function TableList({ handleOpen }) {
                             <th>job</th>
                             <th>rate</th>
                             <th>status</th>
-                            {/* <th></th>
-                            <th></th> */}
                         </tr>
                     </thead>
                     <tbody className="hover:bg-base-300 text-center">
                         {/* row 1 */}
-                        {clients.map((client) => (
+                        {filteredData.map((client) => (
                             <tr key={client.id}>
                                 <td>{client.id}</td>
                                 <td>{client.name}</td>

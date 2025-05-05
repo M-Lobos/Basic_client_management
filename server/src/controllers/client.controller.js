@@ -1,4 +1,6 @@
 import Clients from "../models/clients.js";
+import { Op } from "sequelize";
+import { Sequelize } from "sequelize";
 import { models } from "../models/init-models.js";
 
 export const getAllClients = async (req, res) => {
@@ -77,7 +79,7 @@ export const getClientById = async (req, res) => {
 
     try {
         const client = await Clients.findByPk(id);
-        if (!animal) {
+        if (!client) {
             return res.status(404).json({
                 code: 404,
                 message: "🔴 Client not found"
@@ -148,3 +150,43 @@ export const deleteClient = async (req, res) => {
         })
     }
 }
+
+export const searchClientsByName = async (req, res) => {
+    const { name } = req.query;
+
+    if (!name) {
+        return res.status(400).json({
+            code: 400,
+            message: "❌ Name query parameter is required"
+        });
+    }
+
+    try {
+        const matchingClients = await Clients.findAll({
+            where: {
+                name: {
+                    [Op.iLike]: `%${name}%` // Case-insensitive search
+                }
+            }
+        });
+
+        if (matchingClients.length === 0) {
+            return res.status(404).json({
+                code: 404,
+                message: `❌ No clients found with name matching '${name}'`
+            });
+        }
+
+        res.status(200).json({
+            code: 200,
+            message: `✅ Found ${matchingClients.length} matching client(s)`,
+            data: matchingClients
+        });
+    } catch (error) {
+        console.error(error, "Error while searching clients by name");
+        res.status(500).json({
+            code: 500,
+            message: "🔴 Server error while searching for clients"
+        });
+    }
+};

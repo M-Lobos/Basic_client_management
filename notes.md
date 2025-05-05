@@ -27,6 +27,9 @@
     v/      add daisyUI to your app css
                 @plugin "daisyui";
 
+3) Installing axios for fetching data from bknd to fntnd
+    vi/     npm install axios   
+
 *** Backend ***
 
 1) initialize node and istalling express

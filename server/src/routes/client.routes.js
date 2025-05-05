@@ -5,7 +5,8 @@ import {
     deleteClient,
     getAllClients,
     getClientById,
-    updateClients
+    updateClients,
+    searchClientsByName
 } from "../controllers/client.controller.js"
 
 const router = Router();
@@ -19,5 +20,6 @@ router.get("/clients", getAllClients);
 router.get("/clients/:id", getClientById);
 router.put("/clients/:id", updateClients);
 router.delete("/clients/:id", deleteClient);
+router.get("/search-clients/", searchClientsByName);
 
 export default router
